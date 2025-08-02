@@ -43,4 +43,11 @@ app.use("/api/v1/chats",chatRouter)
 app.use(errorHandler)
 
 
+app.get("/",(req,res)=>{
+    res.send({
+        activeStatus:true,
+        error:false
+    })
+})
+
 export {app};
