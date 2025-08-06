@@ -4,11 +4,11 @@ import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/errorHandler.js";
 const app=express();
 
-
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true        //allows frontend to send requests
-}))
+    origin: true, // dynamically reflect the request origin
+    credentials: true
+}));
+
 
 app.use(express.json({limit:"18kb"}))
 app.use(express.urlencoded({extended:true,limit:"18kb"}));
