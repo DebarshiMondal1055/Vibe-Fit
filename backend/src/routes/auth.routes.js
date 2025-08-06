@@ -3,7 +3,7 @@ import { loginUser, logoutUser,
      onBoardUser,
      registerUser } from "../controllers/auth.controllers.js";
 import { verifyJWT } from "../middlewares/authmiddleware.js";
-import { ApiResponse } from "../../../../YouDemy/BACKEND/src/utils/ApiResponse.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
