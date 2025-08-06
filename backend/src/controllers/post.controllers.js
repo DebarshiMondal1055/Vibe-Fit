@@ -5,39 +5,39 @@ import {deleteInCloudinary, uploadInCloudinary} from "../utils/cloudinary.js"
 import { Post } from "../models/post.model.js";
 import mongoose from "mongoose";
 
-const uploadPost=asyncHandler(async(req,res)=>{
-    const currentUser=req.user;
-    if(!currentUser || !currentUser._id){
-        throw new ApiError(401,"Unauthorized request");
-    }
-    const {caption}=req.body;
+const uploadPost = asyncHandler(async (req, res) => {
+  const currentUser = req.user;
+  if (!currentUser || !currentUser._id) {
+    throw new ApiError(401, "Unauthorized request");
+  }
 
-    const imagePath=req.file?.path;
+  const { caption } = req.body;
+  const imageBuffer = req.file?.buffer;
 
-    if(!imagePath){
-        throw new ApiError(400,"Post not Found");
-    }
+  if (!imageBuffer) {
+    throw new ApiError(400, "No image file uploaded");
+  }
 
-    const post=await uploadInCloudinary(imagePath);
-    if(!post){
-        throw new ApiError(500,"Failed to upload in cloudinary");
-    }
+  const post = await uploadInCloudinary(imageBuffer);
+  if (!post) {
+    throw new ApiError(500, "Failed to upload image to Cloudinary");
+  }
 
-    const newPost=await Post.create({
-        image:post.url,
-        caption:caption||"",
-        owner:currentUser._id
-    })
+  const newPost = await Post.create({
+    image: post.secure_url,
+    caption: typeof caption === "string" ? caption : "",
+    owner: currentUser._id
+  });
 
-    if(!newPost){
-        throw new ApiError(500,"Failed to post");
-    }
+  if (!newPost) {
+    throw new ApiError(500, "Failed to create post");
+  }
 
-    return res
+  return res
     .status(201)
-    .json(new ApiResponse(201,newPost,"Posted successfully"))
+    .json(new ApiResponse(201, newPost, "Posted successfully"));
+});
 
-})
 
 const deletePost=asyncHandler(async(req,res)=>{
     const currentUser=req.user;
