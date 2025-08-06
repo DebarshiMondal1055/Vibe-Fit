@@ -41,12 +41,12 @@ const registerUser=asyncHandler(async(req,res)=>{
 
     const randomAvatar=`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatars[idx]}`;
     
-    const options={
-        httpOnly:true,  // prevent XSS attacks..
-        sameSite:"strict",  //prevent CSRF attacks..
-        secure: process.env.NODE_ENV === "production"
+    const options = {
+  httpOnly: true,
+  sameSite: "None", // ✅ Required for cross-site cookies
+  secure: true,     // ✅ Must be true when using sameSite: "None"
+};
 
-    }
 
     const user=await User.create({
         fullname,
@@ -107,12 +107,11 @@ const loginUser=asyncHandler(async(req,res)=>{
     };
 
     const {accessToken,refreshToken}=await generateAccessAndRefreshToken(user._id);
-    const options={
-        httpOnly:true,  // prevent XSS attacks..
-        sameSite:"strict",  //prevent CSRF attacks..
-        secure: process.env.NODE_ENV === "production"
-
-    }
+    const options = {
+  httpOnly: true,
+  sameSite: "None", // ✅ Required for cross-site cookies
+  secure: true,     // ✅ Must be true when using sameSite: "None"
+};
 
     const LoggedInUser=await User.findById(user._id).select("-password -refreshToken");
     

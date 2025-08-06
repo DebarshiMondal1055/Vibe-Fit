@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/errorHandler.js";
 const app=express();
 
+
+
 app.use(cors({
     origin: true, // dynamically reflect the request origin
     credentials: true
