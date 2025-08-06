@@ -1,5 +1,5 @@
 import path from "path";
-import { ApiResponse } from "../../../../YouDemy/BACKEND/src/utils/ApiResponse.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { avatars } from "../../public/avatars/avatars.js";
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
