@@ -115,7 +115,7 @@ const SignUpPage = () => {
       </div>
       <div className='w-full md:w-1/2 h-full flex items-center justify-center'>
         <img
-          src={"../public/signup.png"}
+          src="/signup.png"   
           alt='Sign up illustration'
           className='w-full h-full object-cover rounded-lg md:rounded-none'
         />
